@@ -10,39 +10,10 @@ const MainContactForm = () => {
   const [isSending, setIsSending] = useState(false);
   const { theme } = useSelector((state) => state.counterSlice);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !email || !message) {
-      alert("Please fill all the fields");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message }),
-      });
-      setName("");
-      setEmail("");
-      setMessage("");
-      if (res.ok) {
-        alert("Your message has been sent");
-      } else {
-        alert("Failed to send message");
-        throw new Error("Failed to send message");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsSending(false);
-    }
-  };
+ 
   return (
     <form
-      onSubmit={handleSubmit}
+     
       method="POST"
       className="flex flex-col gap-2 p-2">
       <div className="flex gap-2">
@@ -52,8 +23,7 @@ const MainContactForm = () => {
           name="name"
           placeholder="Name"
           autoComplete="off"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+         
           className={`w-1/2 border rounded-lg p-3 outline-1 outline-slate-300 overflow-auto ${
             theme ? "bg-white" : "bg-black"
           }`}
@@ -64,8 +34,7 @@ const MainContactForm = () => {
           name="email"
           placeholder="Email"
           autoComplete="off"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+         
           className={`w-1/2 border-[3px] rounded-lg p-3 outline-1 overflow-auto outline-slate-300 ${
             theme ? "bg-white" : "bg-black"
           }`}
@@ -76,8 +45,7 @@ const MainContactForm = () => {
         name="message"
         placeholder="Message"
         autoComplete="off"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+       
         className={`w-full h-32 rounded-lg p-3 border border-slate-300 overflow-auto outline-1 outline-slate-300 ${
           theme ? "bg-white" : " bg-black"
         }`}></textarea>
